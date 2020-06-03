@@ -13,14 +13,17 @@ license=('GPL')
 depends=('openssl' 'libxmu')
 makedepends=('git')
 source=("git://github.com/nsd20463/pwsafe.git#commit=${_commit}"
-	pwsafe-XChangeProperty.patch)
+	pwsafe-XChangeProperty.patch
+	update-config.guess.patch)
 md5sums=('SKIP'
-         'cff6aee2e43f5fbe82e8cd7ccfefb099')
-
+         'cff6aee2e43f5fbe82e8cd7ccfefb099'
+         '8ded5e6bcaed9c2e8e84833e423a8706')
 prepare() {
   cd "$srcdir"/${pkgname}
   # Patch from fedora, fixes FS#28339
   patch -Np0 -i ../pwsafe-XChangeProperty.patch
+  # Patch to config.guess for building on aarch64
+  patch -Np1 -i ../update-config.guess.patch
 }
 
 build() {
